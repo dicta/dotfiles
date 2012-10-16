@@ -1,0 +1,31 @@
+This document outlines my current mail retrieval/reading setup. There are 
+a fair number of moving parts here.
+
+Major tools/packages:
+
+- offlineimap: retrieves IMAP mail from remote servers, stores in local maildir
+
+- notmuch: indexes all mail once received, provides search capability
+
+- msmtp (with msmtpq): sends mail, with the ability to queue outbound mail
+         when disconnected from the internet. Queue flushing is manual.
+
+- mutt (personal fork): Mail reader. The version I use was forked from 
+         mutt 1.5.21 with the addition of the "sidebar" patch and support
+         for virtual folders being created from notmuch queries. All 
+	 interaction with mail is through notmuch.
+
+- alot: Mail reader. Currently testing this as a mutt replacement since
+         it is written from the ground up for notmuch support and mutt's codebase
+	 is not pretty & has some performance problems switching folders.
+
+- gnome-keyring: used for password management when sending and retrieving email
+         from remote servers. Specifically, I use the python bindings from msmtp 
+	 and offlineimap for automated interaction, and the graphical client 
+	 "seahorse" for administration.
+
+My customized scripts:
+
+- scripts/convert_mbox.py: Converts 'mbox' files into the maildir format supported
+        by notmuch. This is primarily used for importing mailing list archives
+	into notmuch for search and later retrieval.
