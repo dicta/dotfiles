@@ -1,0 +1,7 @@
+[color]
+    ui = auto
+[alias]
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+[user]
+    name = Dan
+    email = dan@structuredgrid.net

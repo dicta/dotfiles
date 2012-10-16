@@ -1,0 +1,35 @@
+set sendmail = /home/dan/_dotfiles/scripts/msmtpq
+set sendmail_wait = -1
+set use_from=yes
+set realname="Dan"
+set from=dan@structuredgrid.net
+set envelope_from=yes
+
+# Actual local mail (not Notmuch)
+set folder = '~/@MAILBOX/Local' # default: '~/Mail'
+set spoolfile = +INBOX
+
+
+# Ok, notmuch backend for everything else...
+set virtual_spoolfile = yes
+
+set nm_default_uri = "notmuch:///home/dan/@MAILBOX"
+
+virtual-mailboxes "NEW"   "notmuch://?query=tag:inbox and tag:unread" \
+		  "INBOX" "notmuch://?query=tag:inbox" \
+		  "kernel" "notmuch://?query=tag:kernel-main" \
+                  "kernel-arm" "notmuch://?query=tag:kernel-arm" \
+                  "u-boot" "notmuch://?query=tag:u-boot"
+
+# sidebar
+set sidebar_width	= 35
+set sidebar_visible	= yes
+
+color sidebar_new yellow default
+bind index <left> sidebar-prev
+bind index <right> sidebar-next
+bind index <space> sidebar-open
+bind index <Esc>S sidebar-toggle
+
+macro index A "<modify-labels-then-hide>+archive -inbox\n<sync-mailbox>"
+macro index U "<modify-labels>+unread\n<sync-mailbox>"
